@@ -10,6 +10,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -64,6 +65,12 @@ fun CardfolioTheme(
 
 }
 
+object AppTheme {
+    val customColors: CustomColors
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalCustomColors.current
+}
 data class CustomColors(
     val gradientTop: Color,
     val gradientBottom: Color

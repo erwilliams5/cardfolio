@@ -35,6 +35,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,6 +49,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.cs407.cardfolio.ui.theme.AppTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -56,6 +58,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CardfolioTheme {
+                val gradientTopColor = AppTheme.customColors.gradientTop
+                val gradientBottomColor = AppTheme.customColors.gradientBottom
+                Surface(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    gradientTopColor,
+                                    gradientBottomColor
+                                )
+                            )
+                        ),
+                    color = Color.Transparent
+                ){}
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize()
@@ -77,6 +94,7 @@ fun Cardfolio() {
     var name by remember { mutableStateOf("") }
     var hobby by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
+    var isEditing by remember { mutableStateOf(false) }
     val outlineColor = MaterialTheme.colorScheme.outline
 
     Box(
@@ -154,6 +172,8 @@ fun Cardfolio() {
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = { Icon(Icons.Default.Info, contentDescription = null) },
+                    supportingText = { if (isEditing)
+                        Text(stringResource(id = R.string.age_warning)) },
                 )
             }
         }
