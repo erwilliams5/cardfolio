@@ -32,6 +32,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.getValue
@@ -120,37 +121,40 @@ fun Cardfolio() {
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-                HorizontalDivider(color = outlineColor)
-                Column (
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    OutlinedTextField(
-                        value = name,
-                        onValueChange = { name = it },
-                        label = { Text(stringResource(id = R.string.card_name_label)) },
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                    OutlinedTextField(
-                        value = hobby,
-                        onValueChange = { hobby = it },
-                        label = { Text(stringResource(id = R.string.card_hobby_label)) },
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                    OutlinedTextField(
-                        value = age,
-                        onValueChange = { input ->
-                            if (input.all { it.isDigit() }) {
-                                age = input
-                            }
-                        },
-                        label = { Text(stringResource(id = R.string.card_age_label)) },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                }
+            }
+            HorizontalDivider(color = outlineColor)
+            Column (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp, vertical = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text(stringResource(id = R.string.card_name_label)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
+                )
+                OutlinedTextField(
+                    value = hobby,
+                    onValueChange = { hobby = it },
+                    label = { Text(stringResource(id = R.string.card_hobby_label)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    leadingIcon = { Icon(Icons.Default.Favorite, contentDescription = null) },
+                )
+                OutlinedTextField(
+                    value = age,
+                    onValueChange = { input ->
+                        if (input.all { it.isDigit() }) {
+                            age = input
+                        }
+                    },
+                    label = { Text(stringResource(id = R.string.card_age_label)) },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier.fillMaxWidth(),
+                    leadingIcon = { Icon(Icons.Default.Info, contentDescription = null) },
+                )
             }
         }
     }

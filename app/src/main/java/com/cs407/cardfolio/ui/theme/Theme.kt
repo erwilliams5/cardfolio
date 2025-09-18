@@ -9,6 +9,9 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
@@ -50,9 +53,33 @@ fun CardfolioTheme(
         else -> LightColorScheme
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
+    val currentCustomColors = if (darkTheme) DarkCustomColors else LightCustomColors
+    CompositionLocalProvider(LocalCustomColors provides currentCustomColors) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
+
+}
+
+data class CustomColors(
+    val gradientTop: Color,
+    val gradientBottom: Color
+)
+val LightCustomColors = CustomColors(
+    gradientTop = LightGradientTop,
+    gradientBottom = LightGradientBottom
+)
+val DarkCustomColors = CustomColors(
+    gradientTop = DarkGradientTop,
+    gradientBottom = DarkGradientBottom
+)
+
+private val LocalCustomColors = staticCompositionLocalOf {
+    CustomColors(
+        gradientTop = Color.Unspecified,
+        gradientBottom = Color.Unspecified
     )
 }
